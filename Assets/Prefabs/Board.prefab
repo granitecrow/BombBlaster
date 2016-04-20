@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &134774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 422078}
+  - 114: {fileID: 11440020}
+  m_Layer: 0
+  m_Name: Board
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &422078
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11440020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab1bc2d003960ba4eaab200f2d4dd3d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 13
+  rows: 13
+  playerCount: 4
+  alivePlayerCount: 1
+  barrierTile: {fileID: 103220, guid: a263fe4d6f4db7b49a738665def70ff2, type: 2}
+  outerWallTile: {fileID: 190330, guid: 58fa2b9016575de4e939488175eb099c, type: 2}
+  powerupTiles:
+  - {fileID: 127184, guid: 233b0067272853d4a9d5fea3d707d507, type: 2}
+  - {fileID: 145076, guid: 13260f16e568bc14295810005835c3dd, type: 2}
+  - {fileID: 172240, guid: 69c9dd8c03504a04ab6c0d6c0cbdd52b, type: 2}
+  - {fileID: 170688, guid: 55a2d948a3f4f9e4c8258125ca5419c4, type: 2}
+  - {fileID: 103246, guid: eabbe9c7ac7867f4f8a253b92d3d5a99, type: 2}
+  - {fileID: 121618, guid: a672a4fc6250439439072acf80a5e723, type: 2}
+  - {fileID: 167962, guid: fb1d362b94334e14681ac7bc277b3ca9, type: 2}
+  emptyTile: {fileID: 147126, guid: 00768c4ab76f98f45bcaf634d1770eb1, type: 2}
+  player:
+  - {fileID: 168432, guid: 6290e8d61ade4644dae0fc6b6267d46b, type: 2}
+  BRICK_PERCENT: 0.311
+  BOMB: 5
+  FLAME: 5
+  SPEED: 5
+  PUNCH: 1
+  KICK: 1
+  SUPER_FLAME: 1
+  MAX_BOMB: 5
+  MAX_FLAME: 10
+  MAX_SPEED: 1
+  SPEED_INCREMENT: 0.15
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 134774}
+  m_IsPrefabParent: 1
