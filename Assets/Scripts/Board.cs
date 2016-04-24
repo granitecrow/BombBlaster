@@ -29,6 +29,7 @@ public class Board : MonoBehaviour
     public int SPEED;
     public int PUNCH;
     public int KICK;
+    public int DISEASE;
     public int SUPER_FLAME;
 
     [Header("GAME CONSTANTS")]
@@ -38,7 +39,7 @@ public class Board : MonoBehaviour
     public float SPEED_INCREMENT;
     
     public static Tile[,] tiles;
-    private static MapItem[] powerups;
+    private static List<MapItem> powerups;
 
     public void Awake()
     {
@@ -119,7 +120,7 @@ public class Board : MonoBehaviour
     public void SetTileToEmpty(Tile tile)
     {
 
-        int pos = Array.FindIndex(powerups, p => (p.x == tile.i) && (p.y == tile.j));
+        int pos = powerups.FindIndex(p => (p.x == tile.i) && (p.y == tile.j));
 
         if (pos > -1)
         {
@@ -137,9 +138,9 @@ public class Board : MonoBehaviour
         return tiles[i, j];
     }
 
-    private MapItem[] CreatePowerUpPlacement(Map gameMap)
+    private List<MapItem> CreatePowerUpPlacement(Map gameMap)
     {
-
+        List<MapItem> powers = new List<MapItem>();
         // find all bricks tiles in the map
         MapItem[] bricks = gameMap.Find(TileType.BRICK, 0);
 
@@ -158,18 +159,28 @@ public class Board : MonoBehaviour
             FLAME,
             SPEED,
             PUNCH,
+            DISEASE,
             KICK,
             SUPER_FLAME
         };
-
-
+        
+        // please refactor
+        // this hurts on so many levels
         for (int b = 0; b < BOMB; b++)
         {
-            bricks[b].powerupType = (int)PowerupCode.BOMB;
+            powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.BOMB));
         }
-        
-       
-        return bricks;
+        for (int b = BOMB; b < (BOMB+FLAME); b++)
+        {
+            powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.FLAME));
+        }
+        for (int b = (BOMB+FLAME); b < (BOMB + FLAME + SPEED); b++)
+        {
+            powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.SPEED));
+        }
+
+
+        return powers;
     }
 
 

@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2d;
 
 
-
-
     void Start () {
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
