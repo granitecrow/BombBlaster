@@ -24,8 +24,8 @@ public class Bomb : Tile {
         if (timer < 0)
         {
             if (player != null) player.droppedBomb -= 1;
-            Remove();
             Explode();
+            Remove();
         }
 	}
 

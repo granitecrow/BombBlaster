@@ -9,9 +9,7 @@ public class PowerUp : Tile {
     public void Init(int i, int j, PowerupCode code)
     {
         base.Init(i, j);
-
         this.code = code;
-
     }
 
     // Update is called once per frame
@@ -19,4 +17,15 @@ public class PowerUp : Tile {
     {
         if (isExploding) return;
     }
+
+    public override void Explode()
+    {
+        if (isExploding) return;
+        isExploding = true;
+        gameObject.SetActive(false);
+
+        board.AddTile(i, j, destroyPrefab).Init(i, j);
+        Remove();
+    }
+
 }

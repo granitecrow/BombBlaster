@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 417112}
   - 212: {fileID: 21271446}
   - 61: {fileID: 6194714}
-  - 114: {fileID: 11446530}
+  - 114: {fileID: 11405818}
   m_Layer: 0
   m_Name: BrickWall
   m_TagString: Brick
@@ -44,7 +44,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
---- !u!114 &11446530
+--- !u!114 &11405818
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 103220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd6117b42adf7684db5edffda2d63f85, type: 3}
+  m_Script: {fileID: 11500000, guid: 019e26c364f35d640abb2dc9c756abc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   i: 0

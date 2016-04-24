@@ -38,6 +38,7 @@ public class Board : MonoBehaviour
     public float SPEED_INCREMENT;
     
     public static Tile[,] tiles;
+    private static MapItem[] powerups;
 
     public void Awake()
     {
@@ -52,7 +53,7 @@ public class Board : MonoBehaviour
         tiles = new Tile[rows, columns];
         var gameMap = new Map(rows, columns);
         gameMap = BuildMap(gameMap);
-        //gameMap = RandomizePowerUpPlacement(gameMap);
+        powerups = CreatePowerUpPlacement(gameMap);
 
         MapItem[] spawnPoints = gameMap.Find(TileType.SPAWN, 0);
 
@@ -104,7 +105,8 @@ public class Board : MonoBehaviour
             return emptyTile.GetComponent<Tile>();
         }
         GameObject tileObj = (GameObject)Instantiate(tilePrefab, new Vector3(i, j, 0f), Quaternion.identity);
-        Tile tile = tiles[i, j] = tileObj.GetComponent<Tile>();
+        Tile tile = tileObj.GetComponent<Tile>();
+        tiles[i, j] = tile;
         tile.Init(i, j);
         return tileObj.GetComponent<Tile>();
     }
@@ -116,7 +118,17 @@ public class Board : MonoBehaviour
 
     public void SetTileToEmpty(Tile tile)
     {
-        AddTile(tile.i, tile.j, emptyTile).Init(tile.i, tile.j);
+
+        int pos = Array.FindIndex(powerups, p => (p.x == tile.i) && (p.y == tile.j));
+
+        if (pos > -1)
+        {
+            int poweruptype = powerups[pos].powerupType;
+            AddTile(tile.i, tile.j, powerupTiles[poweruptype]);
+            powerups[pos].x = -1;
+        }
+        else
+            AddTile(tile.i, tile.j, emptyTile).Init(tile.i, tile.j);
     }
 
 
@@ -125,24 +137,39 @@ public class Board : MonoBehaviour
         return tiles[i, j];
     }
 
-    private Map RandomizePowerUpPlacement(Map gameMap)
+    private MapItem[] CreatePowerUpPlacement(Map gameMap)
     {
 
         // find all bricks tiles in the map
         MapItem[] bricks = gameMap.Find(TileType.BRICK, 0);
 
-        int i;
-
-        // shuffle bricks array
-        for (i = bricks.Length - 1; i >= 0; i--)
+        // shuffle bricks array using Knuth shuffle algorithm        
+        for (int t= 0;  t< bricks.Length; t++)
         {
-            int r = (int)UnityEngine.Random.Range(0, i);
-            MapItem temp = bricks[r];
-            bricks[r] = bricks[i];
-            bricks[i] = temp;
+            int r = (int)UnityEngine.Random.Range(t, bricks.Length);
+            MapItem temp = bricks[t];
+            bricks[t] = bricks[r];
+            bricks[r] = temp;
         }
 
-        return gameMap;
+        // next bricks get powerups inside
+        int[] powerUpSettings = {
+            BOMB,
+            FLAME,
+            SPEED,
+            PUNCH,
+            KICK,
+            SUPER_FLAME
+        };
+
+
+        for (int b = 0; b < BOMB; b++)
+        {
+            bricks[b].powerupType = (int)PowerupCode.BOMB;
+        }
+        
+       
+        return bricks;
     }
 
 

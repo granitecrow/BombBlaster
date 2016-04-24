@@ -9,6 +9,7 @@ namespace MapUtility
         WALL,
         BRICK,
         SPAWN,
+        FLAME,
         POWERUP
     }
 

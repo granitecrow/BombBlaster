@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (board.GetTile(i, j).isEmpty)
             {
-                ((Bomb)board.AddTile(i, j, bombPrefab)).Init(i, j, flame, 120, this);
+                ((Bomb)board.AddTile(i, j, bombPrefab)).Init(i, j, flame, 200, this);
                 droppedBomb += 1;
             }
         }
@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour {
 
         i = (int)Mathf.Round(transform.position.x);
         j = (int)Mathf.Round(transform.position.y);
+
 
     }
 
@@ -99,6 +100,7 @@ public class PlayerController : MonoBehaviour {
 
 
     //if collide with powerup then collect
+    //if collide with flame then die
     void OnTriggerEnter2D(Collider2D other)
     {
         //Check the provided Collider2D parameter other to see if it is tagged "PowerUp", if it is...

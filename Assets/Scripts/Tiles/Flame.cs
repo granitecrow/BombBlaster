@@ -14,4 +14,16 @@ public class Flame : Tile {
         if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             Remove();
     }
+
+    public override void Explode()
+    {
+        // do nothing
+    }
+
+    IEnumerator PlayExplodeAdnim(float delayTime)
+    {
+        GetComponent<Animator>().SetBool("die", true);
+        yield return new WaitForSeconds(delayTime);
+        Destroy(gameObject);
+    }
 }

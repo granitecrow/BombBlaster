@@ -9,8 +9,8 @@ public class Tile : MonoBehaviour {
     public bool isWalkable;
     public bool isExplodable;
     public bool isEmpty;
-    
     public GameObject destroyPrefab;    // a prefab to instantiate when tile is destroyed
+
     protected Board board;
     protected bool isExploding = false;
     protected Animator animator;
@@ -40,21 +40,17 @@ public class Tile : MonoBehaviour {
         board = Board.instance;
     }
 
-    public virtual void Explode()
-    {
-        if (isExploding) return;
-        isExploding = true;
-        gameObject.SetActive(false);
-
-        board.AddTile(i, j, destroyPrefab).Init(i, j);
-        //Instantiate(destroyPrefab, transform.position, Quaternion.identity);
-        Remove();
-    }
-
     public virtual void Remove()
     {
         board.SetTileToEmpty(this);
-        Destroy(gameObject); 
+        Destroy(gameObject);
+    }
+
+    public virtual void Explode()
+    {
+        // explode
+        // allow other classes to override because the wall wont explode
+        // that means do something smarter in design but eh
     }
 
 }

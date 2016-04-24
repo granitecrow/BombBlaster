@@ -18,9 +18,7 @@ public class Explosion : MonoBehaviour {
     {
         board = Board.instance;
 
-        List<Tile> flameList = new List<Tile>();
-
-        AddFlame(flameList, center, i, j);
+        AddFlame(center, i, j);
 
         bool tp = true;
         bool bttm = true;
@@ -29,25 +27,24 @@ public class Explosion : MonoBehaviour {
 
         for (int z = 1; z < size; z++)
         {
-            lft = lft && AddFlame(flameList, horizontal, i - z, j);
-            rght = rght && AddFlame(flameList, horizontal, i + z, j);
-            bttm = bttm && AddFlame(flameList, vertical, i, j - z);
-            tp = tp && AddFlame(flameList, vertical, i, j + z);
+            lft = lft && AddFlame(horizontal, i - z, j);
+            rght = rght && AddFlame(horizontal, i + z, j);
+            bttm = bttm && AddFlame(vertical, i, j - z);
+            tp = tp && AddFlame(vertical, i, j + z);
         }
 
-        lft = lft && AddFlame(flameList, left, i - size, j);
-        rght = rght && AddFlame(flameList, right, i + size, j);
-        bttm = bttm && AddFlame(flameList, bottom, i, j - size);
-        tp = tp && AddFlame(flameList, top, i, j + size);
+        lft = lft && AddFlame(left, i - size, j);
+        rght = rght && AddFlame(right, i + size, j);
+        bttm = bttm && AddFlame(bottom, i, j - size);
+        tp = tp && AddFlame(top, i, j + size);
     }
 
-    private bool AddFlame(List<Tile> flameArray, GameObject flameType, int i, int j)
+    private bool AddFlame(GameObject flameType, int i, int j)
     {
         Tile tile = board.GetTile(i, j);
 
         if (tile.isEmpty)
         {
-            flameArray.Add(flameType.GetComponent<Tile>());
             board.AddTile(i, j, flameType);
             return true;
         }
