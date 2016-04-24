@@ -39,8 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1bc2d003960ba4eaab200f2d4dd3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 13
-  rows: 13
+  columns: 25
+  rows: 35
   playerCount: 4
   alivePlayerCount: 1
   barrierTile: {fileID: 103220, guid: a263fe4d6f4db7b49a738665def70ff2, type: 2}
@@ -56,7 +56,7 @@ MonoBehaviour:
   emptyTile: {fileID: 147126, guid: 00768c4ab76f98f45bcaf634d1770eb1, type: 2}
   player:
   - {fileID: 168432, guid: 6290e8d61ade4644dae0fc6b6267d46b, type: 2}
-  BRICK_PERCENT: 0.311
+  BRICK_PERCENT: 1
   BOMB: 5
   FLAME: 5
   SPEED: 5

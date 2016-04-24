@@ -124,14 +124,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 11440020, guid: ea3c5c098e184324d9747f942e3dffdc, type: 2}
-      propertyPath: columns
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11440020, guid: ea3c5c098e184324d9747f942e3dffdc, type: 2}
-      propertyPath: rows
-      value: 15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea3c5c098e184324d9747f942e3dffdc, type: 2}
   m_IsPrefabParent: 0
@@ -336,15 +328,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 489184, guid: 4b98eaf0a12899b42a46df67c298e522, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 489184, guid: 4b98eaf0a12899b42a46df67c298e522, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 489184, guid: 4b98eaf0a12899b42a46df67c298e522, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 489184, guid: 4b98eaf0a12899b42a46df67c298e522, type: 2}
       propertyPath: m_LocalRotation.x
@@ -365,6 +357,10 @@ Prefab:
     - target: {fileID: 489184, guid: 4b98eaf0a12899b42a46df67c298e522, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2069324, guid: 4b98eaf0a12899b42a46df67c298e522, type: 2}
+      propertyPath: orthographic size
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b98eaf0a12899b42a46df67c298e522, type: 2}

@@ -184,11 +184,15 @@ public class Board : MonoBehaviour
                 {
                     newMap.Set(new MapItem(x, y, TileType.WALL, 0));
                 }
+                if ((x % 2 == 0) && (y % 2 == 0))
+                {
+                    newMap.Set(new MapItem(x, y, TileType.WALL, 0));
+                }
             }
         }
 
         int totalPositions = newMap.rows * newMap.columns;
-        int randomBricks = (int)(totalPositions * 0.7f);
+        int randomBricks = (int)(totalPositions * BRICK_PERCENT);
         for (int i = 0; i < randomBricks; i++)
         {
             int randX = Random.Range(0, (newMap.rows - 1));
