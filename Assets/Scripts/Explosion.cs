@@ -18,12 +18,12 @@ public class Explosion : MonoBehaviour {
     {
         board = Board.instance;
 
-        AddFlame(center, i, j);
-
         bool tp = true;
         bool bttm = true;
         bool rght = true;
         bool lft = true;
+
+        AddFlame(center, i, j);
 
         for (int z = 1; z < size; z++)
         {

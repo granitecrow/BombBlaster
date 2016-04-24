@@ -19,11 +19,4 @@ public class Flame : Tile {
     {
         // do nothing
     }
-
-    IEnumerator PlayExplodeAdnim(float delayTime)
-    {
-        GetComponent<Animator>().SetBool("die", true);
-        yield return new WaitForSeconds(delayTime);
-        Destroy(gameObject);
-    }
 }

@@ -23,18 +23,25 @@ public class Bomb : Tile {
         timer -= 1;
         if (timer < 0)
         {
-            if (player != null) player.droppedBomb -= 1;
             Explode();
-            Remove();
+            //Remove();
         }
 	}
+    public override void Remove()
+    {
+        //board.SetTileToEmpty(this);
+        Destroy(gameObject);
+    }
 
     public override void Explode()
     {
         if (isExploding) return;
         isExploding = true;
+        if (player != null) player.droppedBomb -= 1;
         gameObject.SetActive(false);
+        board.SetTileToEmpty(this);
 
         this.gameObject.GetComponent<Explosion>().Init(i, j, flameSize);
+        Remove();
     }
 }
