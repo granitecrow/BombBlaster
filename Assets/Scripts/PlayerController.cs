@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour {
     public bool canKick;
     public bool canThrow;
     public bool canPunch;
-    public bool isInvicible;
     public bool hasDisease;
     public bool isAlive;
 
@@ -50,6 +49,7 @@ public class PlayerController : MonoBehaviour {
         Vector2 p = Vector2.MoveTowards(transform.position, dest, speed);
         GetComponent<Rigidbody2D>().MovePosition(p);
 
+        // TODO: can remove the if to allow movement in between tiles; not sure if i want if this way
         // Check for Input if not moving
         if ((Vector2)transform.position == dest)
         {
@@ -70,6 +70,20 @@ public class PlayerController : MonoBehaviour {
             {
                 dest = (Vector2)transform.position - Vector2.right;     
             }
+            if (canKick == true)
+            {
+                if (Input.GetKey(KeyCode.UpArrow))
+                    IsBomb(Vector2.up);
+
+                if (Input.GetKey(KeyCode.RightArrow))
+                    IsBomb(Vector2.right);
+
+                if (Input.GetKey(KeyCode.DownArrow))
+                    IsBomb(-Vector2.up);
+
+                if (Input.GetKey(KeyCode.LeftArrow))
+                    IsBomb(-Vector2.right);
+            }
         }
         else
         {
@@ -80,7 +94,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (board.GetTile(i, j).isEmpty)
             {
-                ((Bomb)board.AddTile(i, j, bombPrefab)).Init(i, j, flame, 200, this);
+                ((Bomb)board.AddTile(i, j, bombPrefab)).Init(i, j, flame, 250, this);
                 droppedBomb += 1;
             }
         }
@@ -101,13 +115,26 @@ public class PlayerController : MonoBehaviour {
         // Cast Line from 'next to Player' to 'Player'
         Vector2 pos = transform.position;
         RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
-        var isTile = hit.collider.transform.GetComponent<Tile>();
+
         if(hit.collider.transform.GetComponent<Tile>() != null)
         {
             return (hit.transform.GetComponent<Tile>().isWalkable);
         }
         else
             return (hit.collider == GetComponent<Collider2D>());
+    }
+
+    void IsBomb(Vector2 dir)
+    {
+        // Cast Line from 'next to Player' to 'Player'
+        Vector2 pos = transform.position;
+        RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
+        if (hit.collider.transform.tag == "Bomb")
+        {
+            var bomb = hit.collider.transform.GetComponent<Bomb>();
+            bomb.isKicked = true;
+            bomb.kickedDir = dir;
+        }
     }
 
 

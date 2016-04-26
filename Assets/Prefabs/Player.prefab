@@ -92,13 +92,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: 181968, guid: 2277655815235f44f826cd6d3af4d70c, type: 2}
-  speed: 0.05
+  speed: 0.1
   flame: 2
-  bomb: 1
-  canKick: 0
+  bomb: 4
+  canKick: 1
   canThrow: 0
   canPunch: 0
-  isInvicible: 0
   hasDisease: 0
   isAlive: 0
   droppedBomb: 0

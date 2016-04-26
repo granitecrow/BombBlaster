@@ -41,6 +41,10 @@ public class Board : MonoBehaviour
     public static Tile[,] tiles;
     private static List<MapItem> powerups;
 
+
+    // FIXME MonoBehaviour cannot be created with 'new' keyword. should use AddComponent()
+    //private static Tile emptyTile = new Tile(0, 0, true);
+
     public void Awake()
     {
         if (instance == null)
@@ -94,7 +98,9 @@ public class Board : MonoBehaviour
             GameObject.Instantiate(player[playerCount], new Vector3(spawnPoints[playerCount].x, spawnPoints[playerCount].y, 0f), Quaternion.identity);
         }
 
-        // TODO: modify the camera to match the size of the level
+        Camera.main.transform.position = new Vector3(rows / 2, columns / 2, -10);
+        Camera.main.orthographicSize = ((columns/0.8f) * 16) / (2 * 16);
+
     }
 
 
@@ -109,6 +115,7 @@ public class Board : MonoBehaviour
         Tile tile = tileObj.GetComponent<Tile>();
         tiles[i, j] = tile;
         tile.Init(i, j);
+        tileObj.transform.SetParent(instance.transform);
         return tileObj.GetComponent<Tile>();
     }
 
@@ -117,7 +124,7 @@ public class Board : MonoBehaviour
         tiles[i, j] = tile;
     }
 
-    public void SetTileToEmpty(Tile tile)
+    public void RemoveTile(Tile tile)
     {
 
         int pos = powerups.FindIndex(p => (p.x == tile.i) && (p.y == tile.j));
@@ -165,7 +172,7 @@ public class Board : MonoBehaviour
         };
         
         // please refactor
-        // this hurts on so many levels
+        // this hurts on so many levels you lazy bag of crap
         for (int b = 0; b < BOMB; b++)
         {
             powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.BOMB));
@@ -177,6 +184,22 @@ public class Board : MonoBehaviour
         for (int b = (BOMB+FLAME); b < (BOMB + FLAME + SPEED); b++)
         {
             powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.SPEED));
+        }
+        for (int b = (BOMB + FLAME + SPEED); b < (BOMB + FLAME + SPEED + PUNCH); b++)
+        {
+            powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.PUNCH));
+        }
+        for (int b = (BOMB + FLAME + SPEED + PUNCH); b < (BOMB + FLAME + SPEED + PUNCH + DISEASE); b++)
+        {
+            powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.DISEASE));
+        }
+        for (int b = (BOMB + FLAME + SPEED + PUNCH + DISEASE); b < (BOMB + FLAME + SPEED + PUNCH + DISEASE + KICK); b++)
+        {
+            powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.KICK));
+        }
+        for (int b = (BOMB + FLAME + SPEED + PUNCH + DISEASE + KICK); b < (BOMB + FLAME + SPEED + PUNCH + DISEASE + KICK + SUPER_FLAME); b++)
+        {
+            powers.Add(new MapItem(bricks[b].x, bricks[b].y, TileType.POWERUP, (int)PowerupCode.SUPER_FLAME));
         }
 
 

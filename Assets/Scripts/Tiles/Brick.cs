@@ -16,7 +16,7 @@ public class Brick : Tile {
     public override void Remove()
     {
         // if this i,j location contains a power-up then instantiate else set to empty
+        board.RemoveTile(this);
         Destroy(gameObject);
-        board.SetTileToEmpty(this);
     }
 }

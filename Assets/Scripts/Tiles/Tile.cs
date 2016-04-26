@@ -42,7 +42,7 @@ public class Tile : MonoBehaviour {
 
     public virtual void Remove()
     {
-        board.SetTileToEmpty(this);
+        board.RemoveTile(this);
         Destroy(gameObject);
     }
 

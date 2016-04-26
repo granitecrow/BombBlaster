@@ -76,12 +76,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   i: 0
   j: 0
-  isWalkable: 1
+  isWalkable: 0
   isExplodable: 1
   isEmpty: 0
   destroyPrefab: {fileID: 169402, guid: 1b4b5872163157341bc66490397c16e4, type: 2}
-  DELAY: 120
+  DELAY: 1200
   player: {fileID: 0}
+  isKicked: 0
+  kickedDir: {x: 0, y: 0}
 --- !u!114 &11433478
 MonoBehaviour:
   m_ObjectHideFlags: 1
