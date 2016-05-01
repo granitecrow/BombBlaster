@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
     public GameObject boardPrefab;
+    public AudioClip battleMusic;
     private int level = 1;
 
     void Awake()
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour {
     void InitGame()
     {
         boardPrefab.GetComponent<Board>().SetupScene(level);
+        SoundManager.instance.ChangeMusic(battleMusic);
     }
 
     public void EndGame()

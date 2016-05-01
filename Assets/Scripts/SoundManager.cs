@@ -21,6 +21,13 @@ public class SoundManager : MonoBehaviour {
         
     }
 
+    public void ChangeMusic(AudioClip clip)
+    {
+        musicSource.clip = clip;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
     public void PlaySingle(AudioClip clip)
     {
         efxSource.clip = clip;
