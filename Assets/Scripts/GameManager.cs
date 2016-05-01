@@ -27,18 +27,16 @@ public class GameManager : MonoBehaviour {
         boardPrefab.GetComponent<Board>().SetupScene(level);
     }
 
-    public void LoadLevel(string name)
+    public void EndGame()
     {
-        SceneManager.LoadScene(name);
+        StartCoroutine(WaitToLoadEndScreen(4.0f));
     }
 
-    public void GameOver()
+    IEnumerator WaitToLoadEndScreen(float delayTime)
     {
-        enabled = false;
+        yield return new WaitForSeconds(delayTime);
+        SceneManager.LoadScene("GameOver");
     }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
+
 }

@@ -103,6 +103,11 @@ MonoBehaviour:
   droppedBomb: 0
   i: 0
   j: 0
+  horizontalAxis: Horizontal_P1
+  verticalAxis: Vertical_P1
+  bombButton: Fire_P1
+  bombDropSound: {fileID: 8300000, guid: ce48c9405fddc8e4f9f5e873d4e70726, type: 3}
+  bombKickSound: {fileID: 0}
 --- !u!212 &21230718
 SpriteRenderer:
   m_ObjectHideFlags: 1

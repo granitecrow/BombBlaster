@@ -24,6 +24,14 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public int i; // position in tile land
     [HideInInspector] public int j;
 
+    public string horizontalAxis = "Horizontal_P1";
+    public string verticalAxis = "Vertical_P1";
+    public string bombButton = "Fire_P1";
+    public AudioClip bombDropSound;
+    public AudioClip bombKickSound;
+
+    public int joystickNumber;
+
 
     private List<Tile> collectedPowerups = new List<Tile>();
     private Animator animator;
@@ -39,6 +47,14 @@ public class PlayerController : MonoBehaviour {
         droppedBomb = 0;
     }
 
+    public void Init(int playerNumber)
+    {
+        this.joystickNumber = playerNumber + 1;
+        horizontalAxis = "Horizontal_P" + joystickNumber;
+        verticalAxis = "Vertical_P" + joystickNumber;
+        bombButton = "Fire1_P" + joystickNumber;
+}
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -49,40 +65,45 @@ public class PlayerController : MonoBehaviour {
         Vector2 p = Vector2.MoveTowards(transform.position, dest, speed);
         GetComponent<Rigidbody2D>().MovePosition(p);
 
+
         // TODO: can remove the if to allow movement in between tiles; not sure if i want if this way
         // Check for Input if not moving
         if ((Vector2)transform.position == dest)
         {
             GetComponent<Animator>().SetFloat("Speed", 0.0f);
-            if (Input.GetKey(KeyCode.UpArrow) && valid(Vector2.up))
-            {
-                dest = (Vector2)transform.position + Vector2.up;
-            }
-            if (Input.GetKey(KeyCode.RightArrow) && valid(Vector2.right))
-            {
-                dest = (Vector2)transform.position + Vector2.right;
-            }
-            if (Input.GetKey(KeyCode.DownArrow) && valid(-Vector2.up))
-            {
-                dest = (Vector2)transform.position - Vector2.up;
-            }
-            if (Input.GetKey(KeyCode.LeftArrow) && valid(-Vector2.right))
-            {
-                dest = (Vector2)transform.position - Vector2.right;     
-            }
-            if (canKick == true)
-            {
-                if (Input.GetKey(KeyCode.UpArrow))
-                    IsBomb(Vector2.up);
+            var vertAxis = Input.GetAxisRaw(verticalAxis);
+            var horizAxis = Input.GetAxisRaw(horizontalAxis);
 
-                if (Input.GetKey(KeyCode.RightArrow))
-                    IsBomb(Vector2.right);
 
-                if (Input.GetKey(KeyCode.DownArrow))
-                    IsBomb(-Vector2.up);
+            if (vertAxis > 0.1)
+            {
+                if (canWalk(Vector2.up))
+                    dest = (Vector2)transform.position + Vector2.up;
+                else if (canKick == true)
+                    KickIfBomb(Vector2.up);
+            }
+            if (vertAxis < -0.1)
+            {
+                if (canWalk(-Vector2.up))
+                    dest = (Vector2)transform.position - Vector2.up;
+                else if (canKick == true)
+                    KickIfBomb(-Vector2.up);
+            }
 
-                if (Input.GetKey(KeyCode.LeftArrow))
-                    IsBomb(-Vector2.right);
+            if (horizAxis > 0.1)
+            {
+                if(canWalk(Vector2.right))
+                    dest = (Vector2)transform.position + Vector2.right;
+                else if (canKick == true)
+                    KickIfBomb(Vector2.right);
+            }
+
+            if (horizAxis < -0.1)
+            {
+                if (canWalk(-Vector2.right))
+                    dest = (Vector2)transform.position - Vector2.right;
+                else if (canKick == true)
+                    KickIfBomb(-Vector2.right);
             }
         }
         else
@@ -90,11 +111,12 @@ public class PlayerController : MonoBehaviour {
             GetComponent<Animator>().SetFloat("Speed", 1.0f);
         }
 
-        if (Input.GetKey(KeyCode.Space) && droppedBomb < bomb)
+        if (Input.GetButtonDown(bombButton) && droppedBomb < bomb)
         {
             if (board.GetTile(i, j).isEmpty)
             {
                 ((Bomb)board.AddTile(i, j, bombPrefab)).Init(i, j, flame, 250, this);
+                SoundManager.instance.PlaySingle(bombDropSound);
                 droppedBomb += 1;
             }
         }
@@ -107,10 +129,9 @@ public class PlayerController : MonoBehaviour {
         i = (int)Mathf.Round(transform.position.x);
         j = (int)Mathf.Round(transform.position.y);
 
-
     }
-
-    bool valid(Vector2 dir)
+    
+    bool canWalk(Vector2 dir)
     {
         // Cast Line from 'next to Player' to 'Player'
         Vector2 pos = transform.position;
@@ -124,7 +145,7 @@ public class PlayerController : MonoBehaviour {
             return (hit.collider == GetComponent<Collider2D>());
     }
 
-    void IsBomb(Vector2 dir)
+    void KickIfBomb(Vector2 dir)
     {
         // Cast Line from 'next to Player' to 'Player'
         Vector2 pos = transform.position;

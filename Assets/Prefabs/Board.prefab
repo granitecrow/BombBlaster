@@ -41,8 +41,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 15
   rows: 15
-  playerCount: 4
-  alivePlayerCount: 1
+  playerCount: 2
+  alivePlayerCount: 2
   barrierTile: {fileID: 103220, guid: a263fe4d6f4db7b49a738665def70ff2, type: 2}
   outerWallTile: {fileID: 190330, guid: 58fa2b9016575de4e939488175eb099c, type: 2}
   powerupTiles:
@@ -55,8 +55,9 @@ MonoBehaviour:
   - {fileID: 103246, guid: eabbe9c7ac7867f4f8a253b92d3d5a99, type: 2}
   - {fileID: 170688, guid: 55a2d948a3f4f9e4c8258125ca5419c4, type: 2}
   emptyTile: {fileID: 147126, guid: 00768c4ab76f98f45bcaf634d1770eb1, type: 2}
-  player:
-  - {fileID: 168432, guid: 6290e8d61ade4644dae0fc6b6267d46b, type: 2}
+  players:
+  - {fileID: 11461402, guid: 6290e8d61ade4644dae0fc6b6267d46b, type: 2}
+  - {fileID: 11461402, guid: 6290e8d61ade4644dae0fc6b6267d46b, type: 2}
   BRICK_PERCENT: 0.407
   BOMB: 5
   FLAME: 2

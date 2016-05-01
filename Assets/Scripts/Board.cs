@@ -18,7 +18,10 @@ public class Board : MonoBehaviour
     public GameObject outerWallTile;
     public GameObject[] powerupTiles;
     public GameObject emptyTile;
-    public GameObject[] player;
+    public PlayerController[] players;
+    public static Tile[,] tiles;
+
+    private static List<MapItem> powerups;
 
     [Range(0, 1)]
     public float BRICK_PERCENT;
@@ -38,8 +41,7 @@ public class Board : MonoBehaviour
     public float MAX_SPEED;
     public float SPEED_INCREMENT;
     
-    public static Tile[,] tiles;
-    private static List<MapItem> powerups;
+
 
 
     // FIXME MonoBehaviour cannot be created with 'new' keyword. should use AddComponent()
@@ -92,10 +94,12 @@ public class Board : MonoBehaviour
             }
         }
 
-        alivePlayerCount = player.Length;
-        for (int playerCount = 0; playerCount < player.Length; playerCount++)
+        alivePlayerCount = playerCount;     // number of total real and AI players
+
+        for (int i = 0; i < players.Length; i++)
         {
-            GameObject.Instantiate(player[playerCount], new Vector3(spawnPoints[playerCount].x, spawnPoints[playerCount].y, 0f), Quaternion.identity);
+            PlayerController player = (PlayerController)Instantiate(players[i], new Vector3(spawnPoints[i].x, spawnPoints[i].y, 0f), Quaternion.identity);
+            player.Init(i);
         }
 
         Camera.main.transform.position = new Vector3(rows / 2, columns / 2, -10);
@@ -161,16 +165,25 @@ public class Board : MonoBehaviour
         }
 
         // next bricks get powerups inside
-        int[] powerUpSettings = {
-            BOMB,
-            FLAME,
-            SPEED,
-            PUNCH,
-            DISEASE,
-            KICK,
-            SUPER_FLAME
-        };
-        
+        //int[] powerUpSettings = {
+        //    BOMB,
+        //    FLAME,
+        //    SPEED,
+        //    PUNCH,
+        //    DISEASE,
+        //    KICK,
+        //    SUPER_FLAME
+        //};
+
+        //for (int p = 0; p < powerUpSettings.Length; p++)
+        //{
+        //    for (int i = 0; i < p; i++)
+        //    {
+        //        powers.Add(new MapItem(bricks[i + p].x, bricks[i + p].y, TileType.POWERUP, p + 1));
+        //    }
+        //}
+
+
         // please refactor
         // this hurts on so many levels you lazy bag of crap
         for (int b = 0; b < BOMB; b++)
@@ -242,21 +255,20 @@ public class Board : MonoBehaviour
         newMap.Set(new MapItem(1, 2, TileType.EMPTY, 0));
         newMap.Set(new MapItem(2, 1, TileType.EMPTY, 0));
 
+        newMap.Set(new MapItem(rows-2, 1, TileType.SPAWN, 0));
+        newMap.Set(new MapItem(rows-3, 1, TileType.EMPTY, 0));
+        newMap.Set(new MapItem(rows-2, 2, TileType.EMPTY, 0));
+
         return newMap;
     }
-    //public Map LoadMap()
-    //{
-
-    //    int newMap[13,13] =
-    //    {
-    //        {new MapItem(, 1, 1, 1, 1, 1 }
-
-
-    //    return newMap;
-    //}
+    
 
     public void PlayerDeath(PlayerController player)
     {
         alivePlayerCount--;
+        if (alivePlayerCount <= 1)
+        {
+            GameManager.instance.EndGame();
+        }
     }
 }

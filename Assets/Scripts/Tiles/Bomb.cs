@@ -8,6 +8,7 @@ public class Bomb : Tile
     public PlayerController player; // who dropped the bomb
     public bool isKicked = false;
     public Vector2 kickedDir = new Vector2(0, 0);
+    public AudioClip explosionSound;
 
     private int flameSize;
     private int timer;
@@ -48,19 +49,20 @@ public class Bomb : Tile
             }
             else
             {
+                board.SetTile(i,j, this);
                 isKicked = false;
             }
         }
     }
 
-    //if collide with flame then explode
-    void OnCollisionEnter2D(Collider2D coll)
-    {
-        if (coll.gameObject.CompareTag("Flame"))
-        {
-            Explode();
-        }
-    }
+    ////if collide with flame then explode
+    //void OnCollisionEnter2D(Collider2D coll)
+    //{
+    //    if (coll.gameObject.CompareTag("Flame"))
+    //    {
+    //        Explode();
+    //    }
+    //}
 
     //if collide with flame then explode
     void OnTriggerEnter2D(Collider2D coll)
@@ -84,6 +86,7 @@ public class Bomb : Tile
         gameObject.SetActive(false);
         board.RemoveTile(this);
 
+        SoundManager.instance.PlaySingle(explosionSound);
         this.gameObject.GetComponent<Explosion>().Init(i, j, flameSize);
         Remove();
     }
