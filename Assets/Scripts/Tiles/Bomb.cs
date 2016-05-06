@@ -14,7 +14,7 @@ public class Bomb : Tile
     private int timer;
     private float speed = 10f;
 
-
+    private Vector2 dest = Vector2.zero;
 
     public void Init(int i, int j, int flameSize, int timer, PlayerController player)
     {
@@ -34,44 +34,36 @@ public class Bomb : Tile
         if (timer < 0)
         {
             Explode();
-            //Remove();
         }
         if (isKicked)
         {
-            var nextSpot = kickedDir + (Vector2)transform.position;
-            Tile tile = board.GetTile((int)nextSpot.x, (int)nextSpot.y);
+            dest = new Vector2((i + kickedDir.x), (j + kickedDir.y));
 
-            if (tile.isWalkable)
+            if ((Vector2)transform.position == dest)
             {
                 board.RemoveTile(this);
+                base.Init((int)dest.x, (int)dest.y);
+            }
+
+            Tile tile = board.GetTile((int)dest.x, (int)dest.y);
+            if (tile.isWalkable)
+            {
+                if (tile.GetComponent<Transform>().tag == "Flame")
+                {
+                    isKicked = false;
+                    Explode();
+                }
                 transform.Translate(new Vector2(kickedDir.x * Time.deltaTime * speed, kickedDir.y * Time.deltaTime * speed));
-                base.Init((int)nextSpot.x, (int)nextSpot.y);
+
             }
             else
             {
-                board.SetTile(i,j, this);
+                board.SetTile(i, j, this);
                 isKicked = false;
             }
         }
     }
 
-    ////if collide with flame then explode
-    //void OnCollisionEnter2D(Collider2D coll)
-    //{
-    //    if (coll.gameObject.CompareTag("Flame"))
-    //    {
-    //        Explode();
-    //    }
-    //}
-
-    //if collide with flame then explode
-    void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.gameObject.CompareTag("Flame"))
-        {
-            Explode();
-        }
-    }
 
     public override void Remove()
     {
@@ -82,12 +74,20 @@ public class Bomb : Tile
     {
         if (isExploding) return;
         isExploding = true;
-        if (player != null) player.droppedBomb -= 1;
-        gameObject.SetActive(false);
+        StartCoroutine(ExplosionCoroutine());
+    }
+
+    public IEnumerator ExplosionCoroutine()
+    {
+        for (int c = 0; c < DELAY; c++) yield return null;
+
         board.RemoveTile(this);
 
         SoundManager.instance.PlaySingle(explosionSound);
         this.gameObject.GetComponent<Explosion>().Init(i, j, flameSize);
-        Remove();
+
+        if (player != null) player.droppedBomb -= 1;
+
+        Destroy(gameObject);
     }
 }

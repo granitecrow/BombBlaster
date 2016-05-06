@@ -11,12 +11,17 @@ public class Flame : Tile {
 
     public void Update()
     {
-        if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-            Remove();
+        StartCoroutine(KillOnAnimationEnd());
     }
 
     public override void Explode()
     {
         // do nothing
+    }
+
+    private IEnumerator KillOnAnimationEnd()
+    {
+        yield return new WaitForSeconds(0.6f);
+        Remove();
     }
 }

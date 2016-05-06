@@ -19,4 +19,6 @@ public class Brick : Tile {
         board.RemoveTile(this);
         Destroy(gameObject);
     }
+
+
 }

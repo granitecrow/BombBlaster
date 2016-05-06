@@ -147,7 +147,6 @@ public class PlayerController : MonoBehaviour {
 
     void KickIfBomb(Vector2 dir)
     {
-        // Cast Line from 'next to Player' to 'Player'
         Vector2 pos = transform.position;
         RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
         if (hit.collider.transform.tag == "Bomb")
@@ -183,21 +182,21 @@ public class PlayerController : MonoBehaviour {
             case PowerupCode.NULL:
                 break;
             case PowerupCode.BOMB:
-                if (bomb < Board.instance.MAX_BOMB)
+                if (bomb < GameManager.instance.MAX_BOMB)
                 {
                     bomb++;
                 }
                 break;
             case PowerupCode.FLAME:
-                if (flame < Board.instance.MAX_FLAME)
+                if (flame < GameManager.instance.MAX_FLAME)
                 {
                     flame++;
                 }
                 break;
             case PowerupCode.SPEED:
-                if (speed < Board.instance.MAX_SPEED)
+                if (speed < GameManager.instance.MAX_SPEED)
                 {
-                    speed += Board.instance.SPEED_INCREMENT;
+                    speed += GameManager.instance.SPEED_INCREMENT;
                 }
                 break;
             case PowerupCode.PUNCH:
@@ -210,7 +209,7 @@ public class PlayerController : MonoBehaviour {
                 canKick = true;
                 break;
             case PowerupCode.SUPER_FLAME:
-                flame = Board.instance.MAX_FLAME;
+                flame = GameManager.instance.MAX_FLAME;
                 break;
             default:
                 break;
@@ -226,7 +225,7 @@ public class PlayerController : MonoBehaviour {
         isAlive = false;
         StartCoroutine(PlayDeath(4.0f));
         //Destroy(gameObject);
-        board.PlayerDeath(this);
+        GameManager.instance.PlayerDeath(this);
     }
 
     IEnumerator PlayDeath(float delayTime)
@@ -235,5 +234,5 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(delayTime);
         Destroy(gameObject);
     }
-    //if collide with flame then die
+
 }

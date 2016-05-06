@@ -41,6 +41,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardPrefab: {fileID: 134774, guid: ea3c5c098e184324d9747f942e3dffdc, type: 2}
   battleMusic: {fileID: 8300000, guid: 7f382ac62aabef5469c13da71da1358b, type: 3}
+  MAX_BOMB: 10
+  MAX_FLAME: 10
+  MAX_SPEED: 1
+  SPEED_INCREMENT: 0.05
+  alivePlayerCount: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

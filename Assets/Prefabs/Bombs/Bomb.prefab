@@ -80,7 +80,7 @@ MonoBehaviour:
   isExplodable: 1
   isEmpty: 0
   destroyPrefab: {fileID: 169402, guid: 1b4b5872163157341bc66490397c16e4, type: 2}
-  DELAY: 1200
+  DELAY: 6
   player: {fileID: 0}
   isKicked: 0
   kickedDir: {x: 0, y: 0}

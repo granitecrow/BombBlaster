@@ -5,9 +5,20 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
+
     public GameObject boardPrefab;
     public AudioClip battleMusic;
+
+    [Header("GAME CONSTANTS")]
+    public int MAX_BOMB;
+    public int MAX_FLAME;
+    public float MAX_SPEED;
+    public float SPEED_INCREMENT;
+
+
     private int level = 1;
+
+    public int alivePlayerCount;
 
     void Awake()
     {
@@ -29,12 +40,16 @@ public class GameManager : MonoBehaviour {
         SoundManager.instance.ChangeMusic(battleMusic);
     }
 
-    public void EndGame()
+    public void PlayerDeath(PlayerController player)
     {
-        StartCoroutine(WaitToLoadEndScreen(4.0f));
+        alivePlayerCount--;
+        if (alivePlayerCount <= 1)
+        {
+            StartCoroutine(GameOverCoroutine(4.0f));
+        }
     }
 
-    IEnumerator WaitToLoadEndScreen(float delayTime)
+    IEnumerator GameOverCoroutine(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         SceneManager.LoadScene("GameOver");

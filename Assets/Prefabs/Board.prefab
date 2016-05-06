@@ -42,11 +42,9 @@ MonoBehaviour:
   columns: 15
   rows: 15
   playerCount: 2
-  alivePlayerCount: 2
   barrierTile: {fileID: 103220, guid: a263fe4d6f4db7b49a738665def70ff2, type: 2}
   outerWallTile: {fileID: 190330, guid: 58fa2b9016575de4e939488175eb099c, type: 2}
   powerupTiles:
-  - {fileID: 0}
   - {fileID: 127184, guid: 233b0067272853d4a9d5fea3d707d507, type: 2}
   - {fileID: 172240, guid: 69c9dd8c03504a04ab6c0d6c0cbdd52b, type: 2}
   - {fileID: 167962, guid: fb1d362b94334e14681ac7bc277b3ca9, type: 2}
@@ -66,10 +64,6 @@ MonoBehaviour:
   KICK: 1
   DISEASE: 0
   SUPER_FLAME: 1
-  MAX_BOMB: 10
-  MAX_FLAME: 10
-  MAX_SPEED: 1
-  SPEED_INCREMENT: 0.03
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
